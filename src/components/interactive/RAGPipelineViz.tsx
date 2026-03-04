@@ -104,9 +104,7 @@ export default function RAGPipelineViz() {
         </div>
         <p style={{ fontSize: '0.82rem', color: '#5A6B5C', margin: '0 0 0.75rem 0', lineHeight: 1.5 }}>{current.detail}</p>
         <div style={{ background: '#2C3E2D', borderRadius: '8px', padding: '0.8rem' }}>
-          <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#E8E4DC', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.7 }}>
-            {current.data}
-          </pre>
+          <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#F5F0E8', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.7 }}>{current.data}</pre>
         </div>
       </div>
 

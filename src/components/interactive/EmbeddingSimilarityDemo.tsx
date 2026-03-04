@@ -84,7 +84,7 @@ export default function EmbeddingSimilarityDemo() {
 
       <div style={{ background: '#2C3E2D', borderRadius: '8px', padding: '0.7rem 1rem', marginBottom: '0.5rem' }}>
         <div style={{ ...labelStyle, color: '#8BA888', marginBottom: '0.3rem' }}>Query Embedding (5D preview)</div>
-        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.75rem', color: '#E8E4DC' }}>
+        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.75rem', color: '#F5F0E8' }}>
           [{query.vec.map(v => v.toFixed(2)).join(', ')}]
         </span>
       </div>

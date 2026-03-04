@@ -111,9 +111,7 @@ export default function PromptTechniqueExplorer() {
         <>
           <div style={{ background: '#2C3E2D', borderRadius: '8px', padding: '1rem', marginBottom: '1rem' }}>
             <div style={{ ...labelStyle, color: '#8BA888', marginBottom: '0.5rem' }}>Constructed Prompt</div>
-            <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.75rem', color: '#E8E4DC', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.7 }}>
-              {current.prompt}
-            </pre>
+            <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.75rem', color: '#F5F0E8', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.7 }}>{current.prompt}</pre>
           </div>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem 1rem', background: '#F0EBE1', borderRadius: '8px' }}>

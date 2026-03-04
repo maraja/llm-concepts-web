@@ -89,9 +89,7 @@ export default function BenchmarkExplorer() {
           {showSample ? 'Hide' : 'Show'} Sample Question
         </button>
         {showSample && (
-          <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#2C3E2D', background: '#FDFBF7', padding: '0.75rem', borderRadius: '6px', marginTop: '0.5rem', whiteSpace: 'pre-wrap', lineHeight: 1.6, border: '1px solid #E5DFD3' }}>
-            {b.sample}
-          </pre>
+          <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#2C3E2D', background: '#FDFBF7', padding: '0.75rem', borderRadius: '6px', marginTop: '0.5rem', whiteSpace: 'pre-wrap', lineHeight: 1.6, border: '1px solid #E5DFD3' }}>{b.sample}</pre>
         )}
       </div>
 

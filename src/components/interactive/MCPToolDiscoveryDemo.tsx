@@ -99,18 +99,14 @@ export default function MCPToolDiscoveryDemo() {
           <div>
             <div style={{ ...labelStyle, color: '#C76B4A', marginBottom: '0.3rem' }}>Request</div>
             <div style={{ background: '#2C3E2D', borderRadius: '8px', padding: '0.8rem', height: '200px', overflowY: 'auto' }}>
-              <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.68rem', color: '#E8E4DC', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6 }}>
-                {current.request}
-              </pre>
+              <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.68rem', color: '#F5F0E8', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6 }}>{current.request}</pre>
             </div>
           </div>
         )}
         <div>
           <div style={{ ...labelStyle, color: '#8BA888', marginBottom: '0.3rem' }}>{current.request ? 'Response' : 'Final Output'}</div>
           <div style={{ background: '#2C3E2D', borderRadius: '8px', padding: '0.8rem', height: '200px', overflowY: 'auto' }}>
-            <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.68rem', color: '#E8E4DC', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6 }}>
-              {current.response}
-            </pre>
+            <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.68rem', color: '#F5F0E8', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6 }}>{current.response}</pre>
           </div>
         </div>
       </div>

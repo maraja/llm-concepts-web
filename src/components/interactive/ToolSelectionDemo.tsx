@@ -135,13 +135,11 @@ export default function ToolSelectionDemo() {
       {showReasoning && (
         <div style={{ background: '#2C3E2D', borderRadius: '8px', padding: '1rem', marginBottom: '1rem' }}>
           <div style={{ ...labelStyle, color: '#8BA888', marginBottom: '0.4rem' }}>Reasoning</div>
-          <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.75rem', color: '#E8E4DC', margin: '0 0 0.75rem 0', lineHeight: 1.7 }}>
+          <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.75rem', color: '#F5F0E8', margin: '0 0 0.75rem 0', lineHeight: 1.7 }}>
             {query.reasoning}
           </p>
           <div style={{ ...labelStyle, color: '#D4A843', marginBottom: '0.4rem' }}>Extracted Parameters</div>
-          <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#E8E4DC', margin: 0, lineHeight: 1.6 }}>
-            {JSON.stringify(query.params, null, 2)}
-          </pre>
+          <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#F5F0E8', margin: 0, lineHeight: 1.6 }}>{JSON.stringify(query.params, null, 2)}</pre>
         </div>
       )}
 

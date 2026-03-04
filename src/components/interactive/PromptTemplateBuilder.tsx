@@ -120,9 +120,7 @@ export default function PromptTemplateBuilder() {
             {enabledBlocks.length === 0 ? (
               <span style={{ fontSize: '0.82rem', color: '#7A8B7C', fontStyle: 'italic' }}>Enable components on the left to build your prompt.</span>
             ) : (
-              <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.7rem', color: '#E8E4DC', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.7 }}>
-                {assembledPrompt}
-              </pre>
+              <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.7rem', color: '#F5F0E8', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.7 }}>{assembledPrompt}</pre>
             )}
           </div>
           <div style={{ marginTop: '0.75rem', padding: '0.6rem 0.8rem', background: '#F0EBE1', borderRadius: '8px', fontSize: '0.78rem', color: '#5A6B5C' }}>

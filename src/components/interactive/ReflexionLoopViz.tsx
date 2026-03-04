@@ -124,9 +124,7 @@ export default function ReflexionLoopViz() {
         <div style={{ fontSize: '0.72rem', fontWeight: 700, color: phaseColors[currentPhase], textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>
           {phaseLabels[phase]}
         </div>
-        <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.75rem', color: '#2C3E2D', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.7 }}>
-          {getPhaseContent()}
-        </pre>
+        <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.75rem', color: '#2C3E2D', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.7 }}>{getPhaseContent()}</pre>
         {currentPhase === 'evaluate' && (
           <div style={{ marginTop: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <div style={{ flex: 1, height: '8px', background: '#E5DFD3', borderRadius: '4px', overflow: 'hidden' }}>

@@ -152,7 +152,7 @@ export default function MemoryRetrievalDemo() {
       {showRetrieved && (
         <div style={{ background: '#2C3E2D', borderRadius: '8px', padding: '1rem' }}>
           <div style={{ ...labelStyle, color: '#8BA888', marginBottom: '0.4rem' }}>Agent Response (using retrieved memories)</div>
-          <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.78rem', color: '#E8E4DC', margin: 0, lineHeight: 1.7 }}>
+          <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.78rem', color: '#F5F0E8', margin: 0, lineHeight: 1.7 }}>
             {query.answer}
           </p>
         </div>

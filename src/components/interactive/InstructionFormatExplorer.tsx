@@ -98,11 +98,9 @@ export default function InstructionFormatExplorer() {
       {/* Raw template */}
       <div style={{ marginBottom: '1.2rem' }}>
         <div style={{ fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.1em', color: '#8BA888', marginBottom: '0.4rem' }}>Template Format</div>
-        <pre style={{ background: 'rgba(44, 62, 45, 0.05)', borderRadius: '10px', padding: '1rem', margin: 0, fontFamily: "'JetBrains Mono', monospace", fontSize: '0.78rem', lineHeight: 1.6, whiteSpace: 'pre-wrap', overflowX: 'auto' }}>
-          {renderTemplate(tmpl.template).map((p, i) => (
+        <pre style={{ background: 'rgba(44, 62, 45, 0.05)', borderRadius: '10px', padding: '1rem', margin: 0, fontFamily: "'JetBrains Mono', monospace", fontSize: '0.78rem', lineHeight: 1.6, whiteSpace: 'pre-wrap', overflowX: 'auto' }}>{renderTemplate(tmpl.template).map((p, i) => (
             <span key={i} style={{ color: p.color || '#2C3E2D', fontWeight: p.color ? 700 : 400, background: p.color ? `${p.color}15` : 'transparent', borderRadius: p.color ? '3px' : 0, padding: p.color ? '0 3px' : 0 }}>{p.text}</span>
-          ))}
-        </pre>
+          ))}</pre>
       </div>
 
       {/* User input */}
@@ -122,9 +120,7 @@ export default function InstructionFormatExplorer() {
       {/* Filled result */}
       <div>
         <div style={{ fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase' as const, letterSpacing: '0.1em', color: '#D4A843', marginBottom: '0.4rem' }}>Formatted Output</div>
-        <pre style={{ background: 'rgba(212, 168, 67, 0.06)', borderRadius: '10px', padding: '1rem', margin: 0, fontFamily: "'JetBrains Mono', monospace", fontSize: '0.78rem', lineHeight: 1.6, whiteSpace: 'pre-wrap', color: '#2C3E2D' }}>
-          {fillTemplate()}
-        </pre>
+        <pre style={{ background: 'rgba(212, 168, 67, 0.06)', borderRadius: '10px', padding: '1rem', margin: 0, fontFamily: "'JetBrains Mono', monospace", fontSize: '0.78rem', lineHeight: 1.6, whiteSpace: 'pre-wrap', color: '#2C3E2D' }}>{fillTemplate()}</pre>
       </div>
 
       {/* Legend */}

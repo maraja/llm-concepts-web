@@ -116,16 +116,12 @@ export default function AgentToolChain() {
           <div style={{ display: 'flex', gap: '1rem' }}>
             <div style={{ flex: 1 }}>
               <div style={{ ...labelStyle, color: '#8BA888', marginBottom: '0.3rem' }}>Input</div>
-              <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#E8E4DC', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6 }}>
-                {selected.input}
-              </pre>
+              <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#F5F0E8', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6 }}>{selected.input}</pre>
             </div>
             <div style={{ width: '1px', background: '#4A5B4C' }} />
             <div style={{ flex: 1 }}>
               <div style={{ ...labelStyle, color: '#D4A843', marginBottom: '0.3rem' }}>Output</div>
-              <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: completedNodes.has(selected.id) ? '#E8E4DC' : '#5A6B5C', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6 }}>
-                {completedNodes.has(selected.id) ? selected.output : '(Execute this node to see output)'}
-              </pre>
+              <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: completedNodes.has(selected.id) ? '#E8E4DC' : '#5A6B5C', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6 }}>{completedNodes.has(selected.id) ? selected.output : '(Execute this node to see output)'}</pre>
             </div>
           </div>
         </div>

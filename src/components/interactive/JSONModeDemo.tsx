@@ -123,9 +123,7 @@ export default function JSONModeDemo() {
       </div>
 
       <div style={{ background: '#2C3E2D', borderRadius: '8px', padding: '1rem', marginBottom: '1rem' }}>
-        <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#E8E4DC', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.7 }}>
-          {formatOutput(ex.json as unknown as Record<string, unknown>, format)}
-        </pre>
+        <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#F5F0E8', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.7 }}>{formatOutput(ex.json as unknown as Record<string, unknown>, format)}</pre>
       </div>
 
       <div style={{ ...labelStyle, marginBottom: '0.4rem' }}>Schema Validation</div>

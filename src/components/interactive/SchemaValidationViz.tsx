@@ -129,10 +129,7 @@ export default function SchemaValidationViz() {
         <div>
           <div style={{ ...labelStyle, marginBottom: '0.5rem' }}>Generated Output</div>
           <div style={{ background: '#2C3E2D', borderRadius: '8px', padding: '0.8rem', minHeight: '160px' }}>
-            <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#E8E4DC', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.7 }}>
-              {outputSoFar}
-              <span style={{ background: '#D4A843', color: '#2C3E2D', padding: '0 2px', borderRadius: '2px' }}>|</span>
-            </pre>
+            <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#F5F0E8', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.7 }}>{outputSoFar}<span style={{ background: '#D4A843', color: '#2C3E2D', padding: '0 2px', borderRadius: '2px' }}>|</span></pre>
           </div>
           {!current.valid && 'error' in current && (
             <div style={{ marginTop: '0.5rem', padding: '0.5rem 0.7rem', background: 'rgba(199, 107, 74, 0.08)', border: '1px solid #C76B4A44', borderRadius: '6px', fontSize: '0.78rem', color: '#C76B4A' }}>

@@ -175,9 +175,7 @@ export default function RLAIFPipelineViz() {
               background: '#FDFBF7', padding: '0.75rem', borderRadius: '6px',
               whiteSpace: 'pre-wrap', wordBreak: 'break-word', lineHeight: 1.6, margin: 0,
               border: '1px solid #E5DFD3',
-            }}>
-              {JUDGE_PROMPTS[showJudge].prompt}
-            </pre>
+            }}>{JUDGE_PROMPTS[showJudge].prompt}</pre>
           </div>
         </div>
       )}

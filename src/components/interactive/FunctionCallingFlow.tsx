@@ -109,9 +109,7 @@ export default function FunctionCallingFlow() {
                 {s.phase}
               </div>
               {i <= step && (
-                <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#2C3E2D', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6, background: i === step ? '#F0EBE1' : 'transparent', padding: i === step ? '0.5rem' : 0, borderRadius: '6px' }}>
-                  {s.content}
-                </pre>
+                <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#2C3E2D', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6, background: '#F0EBE1', padding: '0.5rem', borderRadius: '6px' }}>{s.content}</pre>
               )}
             </div>
           </div>

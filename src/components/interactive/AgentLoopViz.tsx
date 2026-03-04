@@ -129,9 +129,7 @@ export default function AgentLoopViz() {
                 fontSize: '0.68rem', fontWeight: 700, color: color, minWidth: '54px',
                 textTransform: 'uppercase', letterSpacing: '0.05em', paddingTop: '0.1rem',
               }}>{s.phase}</span>
-              <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#2C3E2D', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6, flex: 1 }}>
-                {s.content}
-              </pre>
+              <pre style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: '#2C3E2D', whiteSpace: 'pre-wrap', margin: 0, lineHeight: 1.6, flex: 1 }}>{s.content}</pre>
             </div>
           );
         })}
