@@ -1,0 +1,55 @@
+---
+interface Props {
+  title: string;
+  summary?: string;
+  prerequisites?: string;
+  moduleTitle: string;
+  moduleSlug: string;
+}
+
+const { title, summary, prerequisites, moduleTitle, moduleSlug } = Astro.props;
+
+const prereqItems = prerequisites
+  ? prerequisites.split(/,\s*(?:and\s+)?/).map(p => p.trim()).filter(Boolean)
+  : [];
+---
+
+<header class="concept-header mb-12">
+  <!-- Module badge -->
+  <a
+    href={`/modules/${moduleSlug}`}
+    class="inline-flex items-center gap-2 rounded-full border border-sage/20 bg-sage/8 px-3.5 py-1 text-[11px] font-mono font-medium text-sage-dark no-underline hover:bg-sage/15 transition-colors mb-5 tracking-wide"
+  >
+    <span class="w-1.5 h-1.5 rounded-full bg-sage"></span>
+    {moduleTitle}
+  </a>
+
+  <!-- Title -->
+  <h1 class="font-serif text-[1.75rem] sm:text-[2.5rem] leading-[1.15] font-bold text-forest-700 tracking-tight mb-5">
+    {title}
+  </h1>
+
+  <!-- Summary -->
+  {summary && (
+    <p class="text-[1.1rem] text-forest-500 leading-relaxed max-w-[600px] mb-6">
+      {summary}
+    </p>
+  )}
+
+  <!-- Prerequisites -->
+  {prereqItems.length > 0 && (
+    <div class="flex flex-wrap items-center gap-2 mt-2">
+      <span class="text-[10px] font-mono font-medium uppercase tracking-wider text-forest-400">
+        Prerequisites
+      </span>
+      <span class="text-forest-400/40 mx-0.5">|</span>
+      {prereqItems.map(prereq => (
+        <span class="inline-block rounded-full bg-cream-200/80 border border-cream-300/50 px-3 py-0.5 text-[11px] text-forest-500 leading-tight">
+          {prereq}
+        </span>
+      ))}
+    </div>
+  )}
+
+  <div class="mt-8 h-px bg-gradient-to-r from-cream-300 via-cream-300/60 to-transparent"></div>
+</header>

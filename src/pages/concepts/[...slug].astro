@@ -1,0 +1,62 @@
+---
+import { getCollection, render } from 'astro:content';
+import ConceptLayout from '../../layouts/ConceptLayout.astro';
+import { getModule } from '../../data/modules';
+import { formatConceptName } from '../../utils/slugify';
+import { getPrevNext } from '../../utils/concepts';
+
+export async function getStaticPaths() {
+  const moduleDirMap: Record<string, string> = {
+    '01-foundational-architecture': 'foundational-architecture',
+    '02-input-representation': 'input-representation',
+    '03-training-fundamentals': 'training-fundamentals',
+    '04-distributed-training': 'distributed-training',
+  };
+
+  const concepts = await getCollection('concepts');
+  return concepts.map(concept => {
+    const id = concept.id.replace(/\.md$/, '');
+    const parts = id.split('/');
+    const moduleDir = parts.length >= 2 ? parts.slice(0, -1).join('/') : '01-foundational-architecture';
+    const conceptSlug = parts[parts.length - 1];
+    const moduleSlug = moduleDirMap[moduleDir] || moduleDir.replace(/^\d+-/, '');
+
+    return {
+      params: { slug: `${moduleSlug}/${conceptSlug}` },
+      props: { concept, moduleSlug, conceptSlug },
+    };
+  });
+}
+
+const { concept, moduleSlug, conceptSlug } = Astro.props;
+const mod = getModule(moduleSlug)!;
+
+const { Content, headings: rawHeadings, remarkPluginFrontmatter } = await render(concept);
+
+const fm = remarkPluginFrontmatter || {};
+const title = fm.title || formatConceptName(conceptSlug);
+const summary = fm.summary || '';
+const prerequisites = fm.prerequisites || '';
+
+const headings = rawHeadings
+  .filter((h: any) => h.depth === 2 || h.depth === 3)
+  .map((h: any) => ({ depth: h.depth, text: h.text, slug: h.slug }));
+
+const { prev, next } = getPrevNext(conceptSlug, moduleSlug);
+---
+
+<ConceptLayout
+  title={title}
+  summary={summary}
+  prerequisites={prerequisites}
+  headings={headings}
+  moduleSlug={moduleSlug}
+  moduleTitle={mod.title}
+  moduleNumber={mod.number}
+  conceptSlug={conceptSlug}
+  prevSlug={prev}
+  nextSlug={next}
+  conceptCount={mod.conceptCount}
+>
+  <Content />
+</ConceptLayout>

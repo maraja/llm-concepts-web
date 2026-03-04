@@ -1,0 +1,30 @@
+---
+interface Props {
+  headings: Array<{ depth: number; text: string; slug: string }>;
+}
+
+const { headings } = Astro.props;
+---
+
+<nav aria-label="Table of Contents">
+  <p class="text-[10px] font-sans font-semibold uppercase tracking-[0.15em] text-forest-400 mb-4">
+    On this page
+  </p>
+  <ul class="space-y-0.5 border-l border-cream-300">
+    {headings.map(heading => (
+      <li>
+        <a
+          href={`#${heading.slug}`}
+          class:list={[
+            'toc-link block py-1 transition-colors no-underline border-none hover:text-forest-700',
+            heading.depth === 2
+              ? 'pl-4 text-[13px] text-forest-500 font-medium'
+              : 'pl-7 text-[12px] text-forest-400',
+          ]}
+        >
+          {heading.text}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

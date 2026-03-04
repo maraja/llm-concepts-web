@@ -1,0 +1,47 @@
+---
+import { formatConceptName } from '../../utils/slugify';
+
+interface Props {
+  prevSlug?: string | null;
+  nextSlug?: string | null;
+  moduleSlug: string;
+}
+
+const { prevSlug, nextSlug, moduleSlug } = Astro.props;
+---
+
+<nav aria-label="Concept navigation" class="mt-16 pt-10 border-t border-cream-300/70">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+    {prevSlug ? (
+      <a
+        href={`/concepts/${moduleSlug}/${prevSlug}`}
+        class="group flex flex-col rounded-xl border border-cream-300 bg-cream-50/80 p-5 transition-all hover:border-sage/50 hover:bg-cream-50 hover:shadow-sm no-underline"
+      >
+        <span class="text-[10px] font-mono font-medium uppercase tracking-widest text-forest-400 mb-2">
+          &larr; Previous
+        </span>
+        <span class="font-serif text-[15px] font-semibold text-forest-700 group-hover:text-rust transition-colors leading-snug">
+          {formatConceptName(prevSlug)}
+        </span>
+      </a>
+    ) : (
+      <div></div>
+    )}
+
+    {nextSlug ? (
+      <a
+        href={`/concepts/${moduleSlug}/${nextSlug}`}
+        class="group flex flex-col items-end text-right rounded-xl border border-cream-300 bg-cream-50/80 p-5 transition-all hover:border-sage/50 hover:bg-cream-50 hover:shadow-sm no-underline"
+      >
+        <span class="text-[10px] font-mono font-medium uppercase tracking-widest text-forest-400 mb-2">
+          Next &rarr;
+        </span>
+        <span class="font-serif text-[15px] font-semibold text-forest-700 group-hover:text-rust transition-colors leading-snug">
+          {formatConceptName(nextSlug)}
+        </span>
+      </a>
+    ) : (
+      <div></div>
+    )}
+  </div>
+</nav>

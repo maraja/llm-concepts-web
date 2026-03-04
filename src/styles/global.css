@@ -1,0 +1,696 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonts loaded via <link> in BaseLayout.astro */
+
+/* ─── Design Tokens ─── */
+:root {
+  --color-bg: #F5F0E8;
+  --color-bg-card: #FDFBF7;
+  --color-bg-code: #F0EBE1;
+  --color-text: #2C3E2D;
+  --color-text-secondary: #5A6B5C;
+  --color-text-muted: #7A8B7C;
+  --color-rust: #C76B4A;
+  --color-rust-light: #D4896D;
+  --color-sage: #8BA888;
+  --color-sage-light: #A8C4A5;
+  --color-gold: #D4A843;
+  --color-border: #E5DFD3;
+  --color-border-light: #EDE8DE;
+
+  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+
+  --article-width: 680px;
+  --sidenote-width: 220px;
+  --toc-width: 180px;
+  --content-gap: 3rem;
+}
+
+/* ─── Base Reset ─── */
+html {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.75;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: rgba(139, 168, 136, 0.25);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-rust);
+  outline-offset: 2px;
+}
+
+[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-muted); }
+
+
+/* ════════════════════════════════════════════
+   DISTILL-STYLE ARTICLE LAYOUT
+   ════════════════════════════════════════════ */
+
+.article-layout {
+  display: grid;
+  grid-template-columns: var(--toc-width) minmax(0, var(--article-width)) var(--sidenote-width);
+  gap: var(--content-gap);
+  max-width: calc(var(--toc-width) + var(--article-width) + var(--sidenote-width) + var(--content-gap) * 2 + 4rem);
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
+}
+
+.article-toc {
+  position: relative;
+}
+
+.article-toc nav {
+  position: sticky;
+  top: 5rem;
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  padding-right: 1.5rem;
+}
+
+.article-content {
+  min-width: 0;
+}
+
+.article-sidenotes {
+  position: relative;
+}
+
+.sidenote {
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+  padding: 0.75rem 1rem;
+  background: var(--color-bg-card);
+  border-left: 2px solid var(--color-sage);
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 1100px) {
+  .article-layout {
+    grid-template-columns: minmax(0, var(--article-width));
+    max-width: var(--article-width);
+    padding: 2rem 1.5rem;
+  }
+  .article-toc,
+  .article-sidenotes { display: none; }
+}
+
+@media (max-width: 640px) {
+  .article-layout { padding: 1.25rem 1rem; }
+}
+
+
+/* ════════════════════════════════════════════
+   CONCEPT BODY — PROSE STYLING
+   This styles the rendered markdown content.
+   ════════════════════════════════════════════ */
+
+.concept-body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+/* Hide the raw h1, summary, and prereqs that are already shown in ConceptHeader.
+   The remark plugin extracts these but Astro's pipeline doesn't persist tree removals. */
+.concept-body > h1:first-child {
+  display: none;
+}
+.concept-body > h1:first-child + p {
+  display: none; /* One-Line Summary paragraph */
+}
+.concept-body > h1:first-child + p + p {
+  display: none; /* Prerequisites paragraph */
+}
+
+/* Headings */
+.concept-body h2 {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--color-border-light);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.concept-body h3 {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-top: 2.25rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
+}
+
+.concept-body h4 {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-top: 1.75rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Paragraphs */
+.concept-body p {
+  margin-bottom: 1.35rem;
+}
+
+/* Links */
+.concept-body a {
+  color: var(--color-rust);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.concept-body a:hover {
+  border-bottom-color: var(--color-rust);
+}
+
+/* Cross-reference concept links */
+.concept-body a.concept-link {
+  color: var(--color-rust);
+  font-weight: 500;
+  border-bottom: 1px dashed var(--color-rust-light);
+  padding: 0 0.1em;
+  border-radius: 2px;
+  transition: all 0.15s ease;
+}
+.concept-body a.concept-link:hover {
+  border-bottom-style: solid;
+  background: rgba(199, 107, 74, 0.06);
+}
+
+/* Lists */
+.concept-body ul,
+.concept-body ol {
+  margin-bottom: 1.35rem;
+  padding-left: 1.5rem;
+}
+.concept-body li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+.concept-body li > strong:first-child {
+  color: var(--color-text);
+}
+
+/* Numbered lists: slightly different styling */
+.concept-body ol {
+  list-style-type: decimal;
+}
+.concept-body ol > li::marker {
+  color: var(--color-rust);
+  font-weight: 500;
+  font-family: var(--font-mono);
+}
+
+/* Bold */
+.concept-body strong {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+/* Italic */
+.concept-body em {
+  font-style: italic;
+}
+
+/* Blockquotes */
+.concept-body blockquote {
+  border-left: 3px solid var(--color-sage);
+  padding: 0.75rem 1.25rem;
+  margin: 1.75rem 0;
+  background: rgba(139, 168, 136, 0.04);
+  border-radius: 0 6px 6px 0;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* HR */
+.concept-body hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 2.5rem 0;
+}
+
+/* Tables */
+.concept-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.concept-body thead {
+  background: var(--color-bg-code);
+}
+.concept-body th {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid var(--color-border);
+  color: var(--color-text-secondary);
+}
+.concept-body td {
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid var(--color-border-light);
+  vertical-align: top;
+}
+.concept-body tr:last-child td {
+  border-bottom: none;
+}
+.concept-body tbody tr:hover {
+  background: rgba(245, 240, 232, 0.5);
+}
+
+/* Inline code */
+.concept-body :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--color-bg-code);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  color: var(--color-text);
+  border: 1px solid var(--color-border-light);
+}
+
+/* Code blocks */
+.concept-body pre {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.65;
+  background: var(--color-bg-code) !important;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1.5rem 1.75rem;
+  margin: 2rem 0;
+  overflow-x: auto;
+}
+.concept-body pre code {
+  font-family: inherit;
+  font-size: inherit;
+  background: none !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0;
+}
+
+/* Figures & images */
+.concept-body figure.concept-figure {
+  margin: 2.5rem 0;
+  text-align: center;
+  padding: 1rem;
+  background: var(--color-bg-card);
+  border-radius: 14px;
+  border: 1px solid var(--color-border-light);
+  box-shadow:
+    0 1px 2px rgba(44, 62, 45, 0.02),
+    0 4px 16px rgba(44, 62, 45, 0.03),
+    0 8px 32px rgba(44, 62, 45, 0.03);
+}
+.concept-body figure.concept-figure img,
+.concept-body img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: none;
+}
+/* Standalone images (not in a figure) */
+.concept-body > p > img,
+.concept-body > img {
+  display: block;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: var(--color-bg-card);
+  border-radius: 14px;
+  border: 1px solid var(--color-border-light);
+  box-shadow:
+    0 1px 2px rgba(44, 62, 45, 0.02),
+    0 4px 16px rgba(44, 62, 45, 0.03),
+    0 8px 32px rgba(44, 62, 45, 0.03);
+}
+.concept-body figure.concept-figure figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+  font-style: italic;
+}
+
+/* Broken image placeholder */
+.image-placeholder {
+  margin: 2rem 0;
+  padding: 2rem 1.5rem;
+  background: var(--color-bg-card);
+  border: 1px dashed var(--color-border);
+  border-radius: 14px;
+  text-align: center;
+}
+.image-placeholder-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  opacity: 0.5;
+}
+.image-placeholder-text {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  font-style: italic;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* Further Reading section */
+.further-reading-section {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-top: 0.5rem;
+}
+.further-reading-section ul,
+.further-reading-section ol {
+  margin-bottom: 0;
+}
+.further-reading-section li {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+.further-reading-section li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.paper-link {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-rust) !important;
+  background: rgba(199, 107, 74, 0.06);
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+  border-bottom: none !important;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+  transition: background 0.15s ease;
+}
+.paper-link:hover {
+  background: rgba(199, 107, 74, 0.12);
+}
+
+/* Image source attribution (italic text after images) */
+.concept-body figure.concept-figure + p > em,
+.concept-body img + br + em,
+.concept-body p > em:only-child {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: -1.5rem;
+  margin-bottom: 2rem;
+}
+
+/* KaTeX math overrides */
+.concept-body .katex {
+  font-size: 1.15em;
+  font-weight: 500;
+}
+
+/* Display math — highlighted formula canvas */
+.concept-body .katex-display {
+  margin: 2.5rem 0;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, #FDFBF7 0%, #F8F4EC 100%);
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-sage);
+  overflow-x: auto;
+  box-shadow:
+    0 1px 2px rgba(44, 62, 45, 0.02),
+    0 2px 8px rgba(44, 62, 45, 0.03);
+  position: relative;
+}
+.concept-body .katex-display::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at 20% 50%, rgba(139, 168, 136, 0.04) 0%, transparent 70%);
+  border-radius: 10px;
+  pointer-events: none;
+}
+.concept-body .katex-display > .katex {
+  font-size: 1.2em;
+  text-align: left;
+  position: relative;
+}
+
+/* Inline math — subtle highlight */
+.concept-body :not(.katex-display) > .katex {
+  padding: 0.15em 0.3em;
+  border-radius: 4px;
+  background: rgba(139, 168, 136, 0.08);
+  font-weight: 500;
+}
+
+
+/* ════════════════════════════════════════════
+   TOC STYLING
+   ════════════════════════════════════════════ */
+
+.toc-link {
+  position: relative;
+  transition: color 0.15s ease;
+}
+.toc-link::before {
+  content: '';
+  position: absolute;
+  left: -0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 0;
+  background: var(--color-rust);
+  border-radius: 1px;
+  transition: height 0.15s ease;
+}
+.toc-link:hover::before,
+.toc-link.active::before {
+  height: 60%;
+}
+
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════ */
+
+/* Tablet (641px – 1100px) */
+@media (max-width: 1100px) {
+  .concept-body {
+    font-size: 0.95rem;
+  }
+}
+
+/* Mobile (≤640px) */
+@media (max-width: 640px) {
+  .concept-body {
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+  .concept-body h2 {
+    font-size: 1.25rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  .concept-body h3 {
+    font-size: 1.05rem;
+    margin-top: 1.75rem;
+  }
+  .concept-body h4 {
+    font-size: 0.95rem;
+  }
+  .concept-body pre {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    margin: 1.25rem -1rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  .concept-body .katex-display {
+    padding: 1rem 1rem;
+    margin: 1.5rem -0.5rem;
+    border-radius: 8px;
+  }
+  .concept-body .katex-display > .katex {
+    font-size: 1em;
+  }
+  .concept-body figure.concept-figure {
+    margin: 1.5rem -0.5rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+  }
+  .concept-body blockquote {
+    margin: 1.25rem 0;
+    padding: 0.6rem 1rem;
+  }
+
+  /* Tables: horizontal scroll */
+  .concept-body table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    font-size: 0.8rem;
+    margin: 1.25rem 0;
+  }
+  .concept-body th,
+  .concept-body td {
+    padding: 0.5rem 0.65rem;
+    white-space: nowrap;
+  }
+
+  /* Further Reading */
+  .further-reading-section {
+    padding: 1rem;
+    margin-top: 0.25rem;
+  }
+  .further-reading-section li {
+    font-size: 0.82rem;
+  }
+
+  /* Image placeholder */
+  .image-placeholder {
+    margin: 1.25rem 0;
+    padding: 1.5rem 1rem;
+  }
+
+  /* Interactive components: reduce padding globally */
+  .interactive-slot > div {
+    padding: 1.25rem !important;
+    margin: 1.5rem 0 !important;
+    border-radius: 10px !important;
+  }
+
+  /* ConceptNav: reduce padding */
+  nav[aria-label="Concept navigation"] a {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Very narrow screens: stack interactive grids */
+@media (max-width: 500px) {
+  .interactive-slot [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* ════════════════════════════════════════════
+   INTERACTIVE ELEMENT SLIDER STYLING
+   ════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════
+   MATH NOTATION IN INTERACTIVE COMPONENTS
+   ════════════════════════════════════════════ */
+
+/* Styled math variable (used in React components where KaTeX isn't available) */
+.math-var {
+  font-family: 'KaTeX_Math', 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 0.95em;
+  letter-spacing: 0.01em;
+}
+.math-var sub {
+  font-size: 0.75em;
+  font-style: normal;
+  vertical-align: baseline;
+  position: relative;
+  top: 0.25em;
+}
+.math-var sup {
+  font-size: 0.75em;
+  font-style: normal;
+}
+
+
+.interactive-elements input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  outline: none;
+}
+
+.interactive-elements input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #FDFBF7;
+  border: 2px solid #8BA888;
+  box-shadow: 0 1px 4px rgba(44, 62, 45, 0.2);
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.interactive-elements input[type="range"]::-webkit-slider-thumb:hover {
+  border-color: #C76B4A;
+  box-shadow: 0 1px 6px rgba(199, 107, 74, 0.3);
+}
+
+.interactive-elements input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #FDFBF7;
+  border: 2px solid #8BA888;
+  box-shadow: 0 1px 4px rgba(44, 62, 45, 0.2);
+  cursor: pointer;
+}
+
+.interactive-elements input[type="range"]::-moz-range-thumb:hover {
+  border-color: #C76B4A;
+}

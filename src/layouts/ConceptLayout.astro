@@ -1,0 +1,96 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import Breadcrumbs from '../components/layout/Breadcrumbs.astro';
+import ConceptHeader from '../components/concept/ConceptHeader.astro';
+import TableOfContents from '../components/concept/TableOfContents.astro';
+import ConceptNav from '../components/concept/ConceptNav.astro';
+import InteractiveHydrator from '../components/interactive/InteractiveHydrator';
+
+interface Props {
+  title: string;
+  summary?: string;
+  prerequisites?: string;
+  headings?: Array<{ depth: number; text: string; slug: string }>;
+  moduleSlug: string;
+  moduleTitle: string;
+  moduleNumber?: string;
+  conceptSlug: string;
+  prevSlug?: string | null;
+  nextSlug?: string | null;
+  conceptCount?: number;
+}
+
+const {
+  title,
+  summary,
+  prerequisites,
+  headings = [],
+  moduleSlug,
+  moduleTitle,
+  moduleNumber = '01',
+  conceptSlug,
+  prevSlug,
+  nextSlug,
+  conceptCount = 20,
+} = Astro.props;
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: moduleTitle, href: `/modules/${moduleSlug}` },
+  { label: title, href: '' },
+];
+---
+
+<BaseLayout title={title} description={summary}>
+  <Header />
+
+  <main>
+    <div class="article-layout">
+      <!-- Left column: sticky TOC -->
+      <aside class="article-toc">
+        <TableOfContents headings={headings} />
+      </aside>
+
+      <!-- Center column: article -->
+      <article class="article-content">
+        <Breadcrumbs items={breadcrumbs} />
+
+        <ConceptHeader
+          title={title}
+          summary={summary}
+          prerequisites={prerequisites}
+          moduleTitle={moduleTitle}
+          moduleSlug={moduleSlug}
+        />
+
+        <div class="concept-body">
+          <slot />
+        </div>
+
+        <InteractiveHydrator client:load />
+
+        <ConceptNav
+          prevSlug={prevSlug}
+          nextSlug={nextSlug}
+          moduleSlug={moduleSlug}
+        />
+      </article>
+
+      <!-- Right column: contextual info -->
+      <aside class="article-sidenotes">
+        <div class="sidenote" style="margin-top: 10rem;">
+          <p class="text-[10px] font-sans font-semibold uppercase tracking-widest text-forest-400 mb-1.5">Module {moduleNumber}</p>
+          <p class="text-sm font-serif font-semibold text-forest-700 leading-snug">{moduleTitle}</p>
+          <p class="text-xs text-forest-400 mt-2">{conceptCount} concepts in this module</p>
+          <a href={`/modules/${moduleSlug}`} class="inline-block mt-2 text-xs text-rust hover:underline">
+            View all &rarr;
+          </a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <Footer />
+</BaseLayout>
