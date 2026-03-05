@@ -309,7 +309,7 @@ html {
 }
 
 /* Code blocks */
-.concept-body pre {
+.concept-body pre:not(.interactive-slot pre) {
   font-family: var(--font-mono);
   font-size: 0.85rem;
   line-height: 1.65;
@@ -320,7 +320,7 @@ html {
   margin: 2rem 0;
   overflow-x: auto;
 }
-.concept-body pre code {
+.concept-body pre:not(.interactive-slot pre) code {
   font-family: inherit;
   font-size: inherit;
   background: none !important;
@@ -550,7 +550,7 @@ html {
   .concept-body h4 {
     font-size: 0.95rem;
   }
-  .concept-body pre {
+  .concept-body pre:not(.interactive-slot pre) {
     padding: 0.75rem 1rem;
     border-radius: 8px;
     font-size: 0.78rem;
